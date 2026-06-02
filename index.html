@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>てる | Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Noto+Sans+JP:wght@300;400;700&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --c1: #FF3CAC;
+    --c2: #784BA0;
+    --c3: #2B86C5;
+    --c4: #00F5A0;
+    --c5: #F7971E;
+    --bg: #0A0A0F;
+    --surface: #13131A;
+    --border: rgba(255,255,255,0.08);
+    --text: #F0F0F5;
+    --muted: rgba(240,240,245,0.5);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans JP', sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* ── CURSOR ── */
+  #cursor {
+    width: 12px; height: 12px;
+    background: var(--c1);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.15s ease, background 0.3s;
+    mix-blend-mode: screen;
+  }
+  #cursor-ring {
+    width: 40px; height: 40px;
+    border: 1px solid rgba(255,60,172,0.5);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9998;
+    transition: transform 0.4s cubic-bezier(.25,.46,.45,.94);
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 0; opacity: 0.35;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 20px 48px;
+    display: flex; justify-content: space-between; align-items: center;
+    background: linear-gradient(to bottom, rgba(10,10,15,0.9), transparent);
+    backdrop-filter: blur(2px);
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 1.4rem;
+    background: linear-gradient(90deg, var(--c1), var(--c3));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    color: var(--muted); text-decoration: none;
+    font-family: 'Space Mono', monospace; font-size: 0.75rem;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    padding: 120px 48px 80px;
+    position: relative; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+  }
+  .orb {
+    position: absolute; border-radius: 50%;
+    filter: blur(80px); opacity: 0.25;
+  }
+  .orb-1 { width: 600px; height: 600px; background: var(--c1); top: -200px; left: -200px; animation: drift1 10s ease-in-out infinite alternate; }
+  .orb-2 { width: 400px; height: 400px; background: var(--c3); bottom: -100px; right: -100px; animation: drift2 13s ease-in-out infinite alternate; }
+  .orb-3 { width: 300px; height: 300px; background: var(--c4); top: 50%; left: 50%; transform: translate(-50%,-50%); animation: drift3 8s ease-in-out infinite alternate; }
+  @keyframes drift1 { from { transform: translate(0,0) scale(1); } to { transform: translate(80px, 60px) scale(1.1); } }
+  @keyframes drift2 { from { transform: translate(0,0); } to { transform: translate(-60px, -80px) scale(1.15); } }
+  @keyframes drift3 { from { transform: translate(-50%,-50%) scale(0.9); } to { transform: translate(-45%,-55%) scale(1.1); } }
+
+  .hero-content { position: relative; z-index: 1; max-width: 900px; }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'Space Mono', monospace; font-size: 0.7rem;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--c4); border: 1px solid rgba(0,245,160,0.3);
+    padding: 6px 14px; border-radius: 100px; margin-bottom: 32px;
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero-tag::before { content: '▶'; font-size: 0.5rem; }
+  h1 {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: clamp(3rem, 8vw, 7rem);
+    line-height: 1.0;
+    animation: fadeUp 0.8s 0.15s ease both;
+  }
+  h1 .line-1 { display: block; }
+  h1 .line-2 {
+    display: block;
+    background: linear-gradient(90deg, var(--c1), var(--c5), var(--c4));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-size: 200%; animation: fadeUp 0.8s 0.15s ease both, shimmer 4s linear infinite;
+  }
+  @keyframes shimmer { from { background-position: 0% } to { background-position: 200% } }
+  .hero-sub {
+    margin-top: 28px; font-size: 1.1rem;
+    color: var(--muted); line-height: 1.8; max-width: 540px;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+  .hero-ctas {
+    margin-top: 44px; display: flex; gap: 16px; flex-wrap: wrap;
+    animation: fadeUp 0.8s 0.45s ease both;
+  }
+  .btn-primary {
+    padding: 14px 32px; border-radius: 100px;
+    background: linear-gradient(135deg, var(--c1), var(--c2));
+    color: #fff; font-family: 'Syne', sans-serif; font-weight: 700;
+    font-size: 0.9rem; text-decoration: none; border: none; cursor: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 0 30px rgba(255,60,172,0.3);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 40px rgba(255,60,172,0.5); }
+  .btn-outline {
+    padding: 14px 32px; border-radius: 100px;
+    border: 1px solid var(--border); color: var(--text);
+    font-family: 'Syne', sans-serif; font-weight: 700;
+    font-size: 0.9rem; text-decoration: none; cursor: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--c3); background: rgba(43,134,197,0.1); }
+
+  .hero-scroll {
+    position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    animation: fadeUp 0.8s 0.6s ease both;
+  }
+  .hero-scroll span { font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; color: var(--muted); }
+  .scroll-line { width: 1px; height: 50px; background: linear-gradient(to bottom, var(--c1), transparent); animation: scrollPulse 2s ease infinite; }
+  @keyframes scrollPulse { 0%,100% { opacity: 0.3; } 50% { opacity: 1; } }
+
+  /* ── SECTIONS ── */
+  section { padding: 100px 48px; position: relative; }
+  .section-label {
+    font-family: 'Space Mono', monospace; font-size: 0.7rem;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--c1); margin-bottom: 16px;
+  }
+  .section-label::before { content: '//  '; }
+  h2 {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: 64px;
+  }
+
+  /* ── ABOUT ── */
+  #about { max-width: 1100px; margin: 0 auto; }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  .about-text p { color: var(--muted); line-height: 2; font-size: 1rem; margin-bottom: 20px; }
+  .about-text p strong { color: var(--text); }
+  .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .stat-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 16px; padding: 28px;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .stat-card:hover { border-color: var(--c1); transform: translateY(-4px); }
+  .stat-num {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: 2.5rem;
+    background: linear-gradient(135deg, var(--c1), var(--c5));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
+
+  /* ── SKILLS ── */
+  #skills { background: var(--surface); }
+  .skills-inner { max-width: 1100px; margin: 0 auto; }
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+  .skill-group {
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 20px; padding: 32px;
+    transition: border-color 0.3s;
+  }
+  .skill-group:hover { border-color: var(--c3); }
+  .skill-group-title {
+    font-family: 'Syne', sans-serif; font-weight: 700;
+    font-size: 0.9rem; margin-bottom: 20px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .skill-icon { font-size: 1.2rem; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag {
+    font-family: 'Space Mono', monospace; font-size: 0.7rem;
+    padding: 5px 12px; border-radius: 100px;
+    border: 1px solid var(--border); color: var(--muted);
+    transition: all 0.2s;
+  }
+  .tag:hover { color: var(--text); }
+  .tag.unity { border-color: rgba(0,245,160,0.4); color: var(--c4); }
+  .tag.python { border-color: rgba(247,151,30,0.4); color: var(--c5); }
+  .tag.research { border-color: rgba(43,134,197,0.4); color: var(--c3); }
+
+  /* ── WORKS ── */
+  #works { max-width: 1100px; margin: 0 auto; }
+  .works-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 28px; }
+  .work-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 24px; overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    position: relative;
+  }
+  .work-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+  .work-card.featured { grid-column: span 2; }
+  .work-thumb {
+    height: 220px; display: flex; align-items: center; justify-content: center;
+    font-size: 4rem; position: relative; overflow: hidden;
+  }
+  .work-thumb .thumb-bg {
+    position: absolute; inset: 0;
+    opacity: 0.15; transition: opacity 0.3s;
+  }
+  .work-card:hover .thumb-bg { opacity: 0.25; }
+  .work-thumb-emoji { position: relative; z-index: 1; filter: drop-shadow(0 0 20px currentColor); }
+  .card-pink .work-thumb { background: rgba(255,60,172,0.1); }
+  .card-pink .thumb-bg { background: linear-gradient(135deg, var(--c1), var(--c2)); }
+  .card-pink:hover { border-color: rgba(255,60,172,0.4); box-shadow: 0 20px 60px rgba(255,60,172,0.15); }
+  .card-blue .work-thumb { background: rgba(43,134,197,0.1); }
+  .card-blue .thumb-bg { background: linear-gradient(135deg, var(--c2), var(--c3)); }
+  .card-blue:hover { border-color: rgba(43,134,197,0.4); box-shadow: 0 20px 60px rgba(43,134,197,0.15); }
+  .card-green .work-thumb { background: rgba(0,245,160,0.1); }
+  .card-green .thumb-bg { background: linear-gradient(135deg, var(--c3), var(--c4)); }
+  .card-green:hover { border-color: rgba(0,245,160,0.4); box-shadow: 0 20px 60px rgba(0,245,160,0.15); }
+  .card-orange .work-thumb { background: rgba(247,151,30,0.1); }
+  .card-orange .thumb-bg { background: linear-gradient(135deg, var(--c4), var(--c5)); }
+  .card-orange:hover { border-color: rgba(247,151,30,0.4); box-shadow: 0 20px 60px rgba(247,151,30,0.15); }
+  .work-info { padding: 28px; }
+  .work-badges { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .badge {
+    font-family: 'Space Mono', monospace; font-size: 0.65rem;
+    padding: 3px 10px; border-radius: 100px;
+    background: rgba(255,255,255,0.06); color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+  .work-title {
+    font-family: 'Syne', sans-serif; font-weight: 700;
+    font-size: 1.25rem; margin-bottom: 10px;
+  }
+  .work-desc { color: var(--muted); font-size: 0.9rem; line-height: 1.8; }
+  .work-links { margin-top: 20px; display: flex; gap: 12px; }
+  .work-link {
+    font-family: 'Space Mono', monospace; font-size: 0.7rem;
+    letter-spacing: 0.05em; color: var(--muted); text-decoration: none;
+    display: flex; align-items: center; gap: 6px;
+    transition: color 0.2s;
+  }
+  .work-link:hover { color: var(--text); }
+  .work-link::after { content: '↗'; }
+
+  /* ── RESEARCH ── */
+  #research { background: var(--surface); }
+  .research-inner { max-width: 1100px; margin: 0 auto; }
+  .research-card {
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 20px; padding: 36px;
+    display: grid; grid-template-columns: auto 1fr; gap: 28px;
+    align-items: start; transition: border-color 0.3s;
+    margin-bottom: 20px;
+  }
+  .research-card:hover { border-color: var(--c3); }
+  .research-num {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: 3rem; color: var(--border);
+    line-height: 1;
+  }
+  .research-title {
+    font-family: 'Syne', sans-serif; font-weight: 700;
+    font-size: 1.1rem; margin-bottom: 10px;
+  }
+  .research-desc { color: var(--muted); font-size: 0.9rem; line-height: 1.8; }
+  .research-meta { display: flex; gap: 16px; margin-top: 14px; flex-wrap: wrap; }
+  .research-tag {
+    font-family: 'Space Mono', monospace; font-size: 0.65rem;
+    color: var(--c3); border: 1px solid rgba(43,134,197,0.3);
+    padding: 3px 10px; border-radius: 100px;
+  }
+
+  /* ── CONTACT ── */
+  #contact { max-width: 700px; margin: 0 auto; text-align: center; }
+  #contact h2 { margin-bottom: 20px; }
+  #contact p { color: var(--muted); line-height: 1.9; margin-bottom: 48px; }
+  .contact-links { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+  .contact-link {
+    display: flex; align-items: center; gap: 10px;
+    padding: 16px 28px; border-radius: 16px;
+    border: 1px solid var(--border); color: var(--text);
+    text-decoration: none; font-family: 'Syne', sans-serif;
+    font-weight: 600; font-size: 0.9rem;
+    transition: all 0.3s;
+  }
+  .contact-link:hover { background: rgba(255,255,255,0.05); border-color: var(--c1); transform: translateY(-3px); }
+  .contact-link .icon { font-size: 1.1rem; }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 40px 48px; border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--muted);
+  }
+  footer span { background: linear-gradient(90deg, var(--c1), var(--c3)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    section { padding: 80px 24px; }
+    .about-grid { grid-template-columns: 1fr; }
+    .work-card.featured { grid-column: span 1; }
+    footer { flex-direction: column; gap: 10px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">てる.dev</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#works">Works</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-tag">大学院生 / エンジニア / クリエイター</div>
+    <h1>
+      <span class="line-1">Creating</span>
+      <span class="line-2">Digital Worlds.</span>
+    </h1>
+    <p class="hero-sub">
+      Unity・Pythonを中心に、ゲーム・メタバース・AI開発ツールを制作しています。<br>
+      研究では防災・避難シミュレーションのVR/XRシステムを開発中。
+    </p>
+    <div class="hero-ctas">
+      <a href="#works" class="btn-primary">作品を見る</a>
+      <a href="#contact" class="btn-outline">連絡する</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>SCROLL</span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">About</div>
+  <h2>こんにちは。</h2>
+  <div class="about-grid reveal">
+    <div class="about-text">
+      <p>徳島大学大学院に在籍するエンジニアです。<strong>ゲーム開発・メタバース・AIツール</strong>の3領域を軸に、実用性と体験の両立を追求したプロダクトを作っています。</p>
+      <p>研究室では <strong>Tokudaiverse</strong> という防災訓練向けバーチャルキャンパスを開発。地震・津波・ミサイル避難など様々なシナリオを Unity + VR で実装しています。</p>
+      <p>個人開発では、ゲームエンジンを使わない<strong>低レベルゲームプログラミング</strong>にも取り組んでおり、仕組みの深い理解を大切にしています。</p>
+    </div>
+    <div class="about-stats reveal">
+      <div class="stat-card">
+        <div class="stat-num">Unity</div>
+        <div class="stat-label">メインエンジン</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">Python</div>
+        <div class="stat-label">CLIツール開発</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">VR/XR</div>
+        <div class="stat-label">研究フィールド</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">AI</div>
+        <div class="stat-label">Claude API活用</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="skills-inner">
+    <div class="section-label">Skills</div>
+    <h2>技術スタック</h2>
+    <div class="skills-grid reveal">
+      <div class="skill-group">
+        <div class="skill-group-title"><span class="skill-icon">🎮</span> Game Dev</div>
+        <div class="skill-tags">
+          <span class="tag unity">Unity</span>
+          <span class="tag unity">C#</span>
+          <span class="tag unity">URP</span>
+          <span class="tag unity">Blender</span>
+          <span class="tag unity">PhysX</span>
+          <span class="tag">低レベルゲーム開発</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title"><span class="skill-icon">🐍</span> Python / AI</div>
+        <div class="skill-tags">
+          <span class="tag python">Python</span>
+          <span class="tag python">Claude API</span>
+          <span class="tag python">faster-whisper</span>
+          <span class="tag python">CLI設計</span>
+          <span class="tag">音声処理</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title"><span class="skill-icon">🌐</span> Web / Infra</div>
+        <div class="skill-tags">
+          <span class="tag">WebGL</span>
+          <span class="tag">HTML/CSS/JS</span>
+          <span class="tag">Node.js</span>
+          <span class="tag">Cloudflare Tunnel</span>
+          <span class="tag">Git/GitHub</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title"><span class="skill-icon">🔬</span> Research</div>
+        <div class="skill-tags">
+          <span class="tag research">防災シミュレーション</span>
+          <span class="tag research">VR/XR</span>
+          <span class="tag research">Photon Fusion</span>
+          <span class="tag research">マルチプレイヤー</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORKS -->
+<section id="works">
+  <div class="section-label">Works</div>
+  <h2>制作実績</h2>
+  <div class="works-grid">
+
+    <div class="work-card card-pink featured reveal">
+      <div class="work-thumb">
+        <div class="thumb-bg"></div>
+        <span class="work-thumb-emoji">🏫</span>
+      </div>
+      <div class="work-info">
+        <div class="work-badges">
+          <span class="badge">Unity</span>
+          <span class="badge">VR/XR</span>
+          <span class="badge">研究プロジェクト</span>
+          <span class="badge">マルチプレイヤー</span>
+        </div>
+        <div class="work-title">Tokudaiverse — 防災メタバース</div>
+        <div class="work-desc">
+          徳島大学のバーチャルキャンパスを舞台にした防災・避難訓練シミュレーション。
+          地震・津波・ミサイル避難など複数のシナリオを実装し、WebGL対応で
+          ブラウザ上でも体験可能。Photon Fusionによるリアルタイムマルチプレイヤーを搭載。
+        </div>
+        <div class="work-links">
+          <a href="#" class="work-link">GitHub</a>
+          <a href="#" class="work-link">詳細</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="work-card card-orange reveal">
+      <div class="work-thumb">
+        <div class="thumb-bg"></div>
+        <span class="work-thumb-emoji">🎱</span>
+      </div>
+      <div class="work-info">
+        <div class="work-badges">
+          <span class="badge">Unity</span>
+          <span class="badge">個人開発</span>
+        </div>
+        <div class="work-title">スプリットピンボール</div>
+        <div class="work-desc">
+          ペグに当たるとボールが分裂する独自メカニクスを持つピンボールゲーム。
+          高スコアポケットとボール減少の駆け引きが特徴的なゲームデザイン。
+        </div>
+        <div class="work-links">
+          <a href="#" class="work-link">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="work-card card-green reveal">
+      <div class="work-thumb">
+        <div class="thumb-bg"></div>
+        <span class="work-thumb-emoji">🎙️</span>
+      </div>
+      <div class="work-info">
+        <div class="work-badges">
+          <span class="badge">Python</span>
+          <span class="badge">Claude API</span>
+          <span class="badge">CLI</span>
+        </div>
+        <div class="work-title">meetscribe</div>
+        <div class="work-desc">
+          システム音声とマイクを同時録音し、faster-whisperで文字起こし。
+          Claude APIで要約・アクションアイテム・メール下書きを自動生成するCLIツール。
+          BYOK（自前APIキー）方式を採用。
+        </div>
+        <div class="work-links">
+          <a href="#" class="work-link">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="work-card card-blue reveal">
+      <div class="work-thumb">
+        <div class="thumb-bg"></div>
+        <span class="work-thumb-emoji">🕹️</span>
+      </div>
+      <div class="work-info">
+        <div class="work-badges">
+          <span class="badge">C/C++</span>
+          <span class="badge">低レベル開発</span>
+        </div>
+        <div class="work-title">ゲームエンジン自作</div>
+        <div class="work-desc">
+          ゲームエンジンを使わずにゲームを実装する低レベルゲームプログラミング。
+          描画・物理・入力を自前で実装することで、エンジンの仕組みを深く理解。
+        </div>
+        <div class="work-links">
+          <a href="#" class="work-link">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section id="research">
+  <div class="research-inner">
+    <div class="section-label">Research</div>
+    <h2>研究活動</h2>
+
+    <div class="research-card reveal">
+      <div class="research-num">01</div>
+      <div>
+        <div class="research-title">VRを用いた防災・避難訓練シミュレーションシステムの開発</div>
+        <div class="research-desc">
+          Tokudaiverseプロジェクトの研究部分。バーチャル空間での避難訓練が実際の防災意識・行動に与える
+          影響を検証。地震・津波・ミサイルなど複数の災害シナリオを実装し、マルチユーザー環境での
+          訓練効果を評価。
+        </div>
+        <div class="research-meta">
+          <span class="research-tag">Unity</span>
+          <span class="research-tag">VR/XR</span>
+          <span class="research-tag">防災工学</span>
+          <span class="research-tag">HCI</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="research-card reveal">
+      <div class="research-num">02</div>
+      <div>
+        <div class="research-title">WebGLによるメタバースアクセシビリティの向上</div>
+        <div class="research-desc">
+          VRヘッドセットを必要とせず、ブラウザのみで参加できるメタバース環境の実現。
+          Unity WebGL制約（WASMメモリ・テクスチャ圧縮）の最適化と
+          Addressablesを用いた遅延ロード実装について研究。
+        </div>
+        <div class="research-meta">
+          <span class="research-tag">WebGL</span>
+          <span class="research-tag">Unity Addressables</span>
+          <span class="research-tag">パフォーマンス最適化</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Contact</div>
+  <h2>一緒に作りませんか？</h2>
+  <p>
+    ゲーム開発・VR/XR・AIツール開発などに興味のある企業さまからのご連絡をお待ちしています。<br>
+    インターンシップや就職についてのお問い合わせもお気軽にどうぞ。
+  </p>
+  <div class="contact-links reveal">
+    <a href="https://github.com/" class="contact-link" target="_blank">
+      <span class="icon">🐙</span> GitHub
+    </a>
+    <a href="mailto:your@email.com" class="contact-link">
+      <span class="icon">✉️</span> Email
+    </a>
+    <a href="https://twitter.com/" class="contact-link" target="_blank">
+      <span class="icon">𝕏</span> X (Twitter)
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>© 2025 <span>てる</span></div>
+  <div>Built with 💜 in Tokushima</div>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursor-ring');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.transform = `translate(${mx - 6}px, ${my - 6}px)`;
+  });
+  function animateRing() {
+    rx += (mx - rx - 20) * 0.12;
+    ry += (my - ry - 20) * 0.12;
+    ring.style.transform = `translate(${rx}px, ${ry}px)`;
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.transform += ' scale(2)';
+      ring.style.transform += ' scale(1.5)';
+      cursor.style.background = '#00F5A0';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.background = '#FF3CAC';
+    });
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
