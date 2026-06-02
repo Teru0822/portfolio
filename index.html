@@ -361,7 +361,6 @@
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">てる.dev</div>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#skills">Skills</a></li>
@@ -379,18 +378,17 @@
     <div class="orb orb-3"></div>
   </div>
   <div class="hero-content">
-    <div class="hero-tag">大学院生 / エンジニア / クリエイター</div>
+    <div class="hero-tag">大学生 / エンジニア / クリエイター</div>
     <h1>
       <span class="line-1">Creating</span>
       <span class="line-2">Digital Worlds.</span>
     </h1>
     <p class="hero-sub">
-      Unity・Pythonを中心に、ゲーム・メタバース・AI開発ツールを制作しています。<br>
+      C++でのQt・QtGIS開発、OpenGLやSDLなどの低レイヤのみを使った3Dゲーム開発をはじめ、Unityを中心にゲーム・メタバースを制作しています。<br>
       研究では防災・避難シミュレーションのVR/XRシステムを開発中。
     </p>
     <div class="hero-ctas">
       <a href="#works" class="btn-primary">作品を見る</a>
-      <a href="#contact" class="btn-outline">連絡する</a>
     </div>
   </div>
   <div class="hero-scroll">
@@ -405,9 +403,9 @@
   <h2>こんにちは。</h2>
   <div class="about-grid reveal">
     <div class="about-text">
-      <p>徳島大学大学院に在籍するエンジニアです。<strong>ゲーム開発・メタバース・AIツール</strong>の3領域を軸に、実用性と体験の両立を追求したプロダクトを作っています。</p>
-      <p>研究室では <strong>Tokudaiverse</strong> という防災訓練向けバーチャルキャンパスを開発。地震・津波・ミサイル避難など様々なシナリオを Unity + VR で実装しています。</p>
-      <p>個人開発では、ゲームエンジンを使わない<strong>低レベルゲームプログラミング</strong>にも取り組んでおり、仕組みの深い理解を大切にしています。</p>
+      <p>徳島大学に在籍するエンジニア志望の学生です。OpenGLやSDLのみを使った低レイヤ3Dゲームから、<strong>Unityを使ったSteam向けゲーム・メタバース</strong>まで、作りたいものに合わせて技術を選んでプロダクトを作っています。</p>
+      <p>研究室では <strong>Tokudiverse</strong> という防災訓練向けバーチャルキャンパスを開発。自分が担当しているのはその <strong>WebGL化</strong> で、広大なキャンパス空間をブラウザ上でも軽快に動作させ、地震・津波・ミサイル避難など様々なシナリオをどこでも・誰でもプレイできる環境を実現しています。</p>
+      <p>個人では、Blenderでモデルやテクスチャをゼロから制作し、OpenGLでそれらを読み込んで自由に表現するまでの一貫した技術を構築。その知見を<strong>解説動画</strong>にまとめ、同じ道を歩む人たちに向けて発信する活動もしています。また、<strong>Keras</strong>を使ったグー・チョキ・パーの画像認識AIの制作も経験しています。</p>
     </div>
     <div class="about-stats reveal">
       <div class="stat-card">
@@ -415,16 +413,16 @@
         <div class="stat-label">メインエンジン</div>
       </div>
       <div class="stat-card">
-        <div class="stat-num">Python</div>
-        <div class="stat-label">CLIツール開発</div>
+        <div class="stat-num">Keras</div>
+        <div class="stat-label">画像認識AI</div>
       </div>
       <div class="stat-card">
-        <div class="stat-num">VR/XR</div>
+        <div class="stat-num">VR</div>
         <div class="stat-label">研究フィールド</div>
       </div>
       <div class="stat-card">
-        <div class="stat-num">AI</div>
-        <div class="stat-label">Claude API活用</div>
+        <div class="stat-num">OpenGL</div>
+        <div class="stat-label">低レイヤ描画</div>
       </div>
     </div>
   </div>
@@ -498,11 +496,11 @@
           <span class="badge">研究プロジェクト</span>
           <span class="badge">マルチプレイヤー</span>
         </div>
-        <div class="work-title">Tokudaiverse — 防災メタバース</div>
+        <div class="work-title">Tokudiverse — 防災メタバース WebGL化</div>
         <div class="work-desc">
           徳島大学のバーチャルキャンパスを舞台にした防災・避難訓練シミュレーション。
-          地震・津波・ミサイル避難など複数のシナリオを実装し、WebGL対応で
-          ブラウザ上でも体験可能。Photon Fusionによるリアルタイムマルチプレイヤーを搭載。
+          担当はプロジェクトのWebGL対応で、広い仮想空間をブラウザ上でも軽快に動作させ、
+          地震・津波・ミサイル避難などのシナリオをインストール不要でどこでも体験できるようにしている。
         </div>
         <div class="work-links">
           <a href="#" class="work-link">GitHub</a>
@@ -555,20 +553,55 @@
       </div>
     </div>
 
-    <div class="work-card card-blue reveal">
+    <div class="work-card card-blue reveal" style="grid-column: span 2;">
+      <div class="work-info" style="padding: 28px 28px 0;">
+        <div class="work-badges">
+          <span class="badge">C++</span>
+          <span class="badge">OpenGL</span>
+          <span class="badge">Blender</span>
+          <span class="badge">SDL</span>
+          <span class="badge">解説動画</span>
+        </div>
+        <div class="work-title">OpenGL 3Dゲーム開発 ＆ 解説シリーズ</div>
+        <div class="work-desc">
+          Blenderでモデル・テクスチャをゼロから制作し、OpenGLで読み込んで3Dゲームとして動かすまでの
+          一貫したパイプラインを独自に構築。その知識をわかりやすい解説動画にまとめ、
+          低レイヤ開発を学びたい人向けに発信。
+        </div>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px; padding:20px 28px 28px;">
+        <div>
+          <div style="font-family:'Syne',sans-serif; font-weight:700; font-size:0.85rem; margin-bottom:10px; color:var(--text);">OpenGLによる3Dゲーム制作講座【第一回】</div>
+          <div style="position:relative; padding-bottom:56.25%; height:0; border-radius:12px; overflow:hidden; margin-bottom:10px;">
+            <iframe src="https://www.youtube.com/embed/2qXD-DStvgk?start=1651" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+          </div>
+          <a href="https://www.youtube.com/watch?v=2qXD-DStvgk&t=1651s" target="_blank" class="work-link" style="justify-content:center; padding:8px; border:1px solid rgba(255,255,255,0.1); border-radius:8px; display:flex;">YouTube で見る</a>
+        </div>
+        <div>
+          <div style="font-family:'Syne',sans-serif; font-weight:700; font-size:0.85rem; margin-bottom:10px; color:var(--text);">OpenGLによる3Dゲーム制作講座【第二回・第三回】</div>
+          <div style="position:relative; padding-bottom:56.25%; height:0; border-radius:12px; overflow:hidden; margin-bottom:10px;">
+            <iframe src="https://www.youtube.com/embed/Q8Nb7K4do-M?start=2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+          </div>
+          <a href="https://www.youtube.com/watch?v=Q8Nb7K4do-M&t=2s" target="_blank" class="work-link" style="justify-content:center; padding:8px; border:1px solid rgba(255,255,255,0.1); border-radius:8px; display:flex;">YouTube で見る</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="work-card card-green reveal">
       <div class="work-thumb">
         <div class="thumb-bg"></div>
-        <span class="work-thumb-emoji">🕹️</span>
+        <span class="work-thumb-emoji">✊</span>
       </div>
       <div class="work-info">
         <div class="work-badges">
-          <span class="badge">C/C++</span>
-          <span class="badge">低レベル開発</span>
+          <span class="badge">Python</span>
+          <span class="badge">Keras</span>
+          <span class="badge">画像認識</span>
         </div>
-        <div class="work-title">ゲームエンジン自作</div>
+        <div class="work-title">グー・チョキ・パー 画像認識AI</div>
         <div class="work-desc">
-          ゲームエンジンを使わずにゲームを実装する低レベルゲームプログラミング。
-          描画・物理・入力を自前で実装することで、エンジンの仕組みを深く理解。
+          Kerasを使ってグー・チョキ・パーの手の形を認識するCNNモデルを構築。
+          データ収集・前処理・学習・推論まで一通りの機械学習パイプラインを実装した。
         </div>
         <div class="work-links">
           <a href="#" class="work-link">GitHub</a>
@@ -588,11 +621,11 @@
     <div class="research-card reveal">
       <div class="research-num">01</div>
       <div>
-        <div class="research-title">VRを用いた防災・避難訓練シミュレーションシステムの開発</div>
+        <div class="research-title">Tokudiverseのブラウザ対応 — WebGLによる避難訓練のアクセシビリティ向上</div>
         <div class="research-desc">
-          Tokudaiverseプロジェクトの研究部分。バーチャル空間での避難訓練が実際の防災意識・行動に与える
-          影響を検証。地震・津波・ミサイルなど複数の災害シナリオを実装し、マルチユーザー環境での
-          訓練効果を評価。
+          VR/XRデバイスを持たないユーザーも含め、誰もがブラウザ一つで防災訓練に参加できる環境の実現を目指す。
+          Unity WebGLの制約（WASMメモリ・テクスチャ圧縮）の最適化、Addressablesによる遅延ロードなどを実装し、
+          広いバーチャルキャンパスを軽快に動作させることを研究。
         </div>
         <div class="research-meta">
           <span class="research-tag">Unity</span>
@@ -628,7 +661,7 @@
   <div class="section-label">Contact</div>
   <h2>一緒に作りませんか？</h2>
   <p>
-    ゲーム開発・VR/XR・AIツール開発などに興味のある企業さまからのご連絡をお待ちしています。<br>
+    ゲーム開発・VR/XR・低レイヤ開発などに興味のある企業さまからのご連絡をお待ちしています。<br>
     インターンシップや就職についてのお問い合わせもお気軽にどうぞ。
   </p>
   <div class="contact-links reveal">
