@@ -40,8 +40,9 @@
     position: fixed; top: 0; left: 0;
     pointer-events: none;
     z-index: 9999;
-    transition: transform 0.15s ease, background 0.3s;
+    transition: background 0.3s;
     mix-blend-mode: screen;
+    will-change: transform;
   }
   #cursor-ring {
     width: 40px; height: 40px;
@@ -50,7 +51,7 @@
     position: fixed; top: 0; left: 0;
     pointer-events: none;
     z-index: 9998;
-    transition: transform 0.4s cubic-bezier(.25,.46,.45,.94);
+    will-change: transform;
   }
 
   /* ── NOISE OVERLAY ── */
@@ -400,7 +401,6 @@
     <li><a href="#skills">Skills</a></li>
     <li><a href="#works">Works</a></li>
     <li><a href="#research">Research</a></li>
-    <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
 
@@ -523,9 +523,13 @@
   <div class="works-grid">
 
     <div class="work-card card-pink featured reveal">
-      <div class="work-thumb">
-        <div class="thumb-bg"></div>
-        <span class="work-thumb-emoji">🏫</span>
+      <div class="work-thumb" data-slider style="height:220px; overflow:hidden; padding:0;">
+        <img class="hf-slide active" src="images/Tokudiverse_1.png" alt="Tokudiverse 1" loading="lazy">
+        <img class="hf-slide" src="images/Tokudiverse_2.png" alt="Tokudiverse 2" loading="lazy">
+        <button class="hf-btn hf-prev" data-sld-prev type="button">&#8249;</button>
+        <button class="hf-btn hf-next" data-sld-next type="button">&#8250;</button>
+        <div class="hf-dots"><span class="hf-dot active"></span><span class="hf-dot"></span></div>
+        <div class="hf-counter">1 / 2</div>
       </div>
       <div class="work-info">
         <div class="work-badges">
@@ -568,9 +572,8 @@
 
 
     <div class="work-card card-blue reveal">
-      <div class="work-thumb">
-        <div class="thumb-bg"></div>
-        <span class="work-thumb-emoji">📡</span>
+      <div class="work-thumb" style="height:220px; overflow:hidden; padding:0;">
+        <img src="images/proxipass.png" alt="ProxiPass" style="width:100%; height:100%; object-fit:cover;" loading="lazy">
       </div>
       <div class="work-info">
         <div class="work-badges">
@@ -703,67 +706,26 @@
     <div class="research-card reveal">
       <div class="research-num">01</div>
       <div>
-        <div class="research-title">Tokudiverseのブラウザ対応 — WebGLによる避難訓練のアクセシビリティ向上</div>
+        <div class="research-title">TokudiverseのWebGL化 — ブラウザによる防災訓練のアクセシビリティ向上</div>
         <div class="research-desc">
-          VR/XRデバイスを持たないユーザーも含め、誰もがブラウザ一つで防災訓練に参加できる環境の実現を目指す。
-          Unity WebGLの制約（WASMメモリ・テクスチャ圧縮）の最適化、Addressablesによる遅延ロードなどを実装し、
-          広いバーチャルキャンパスを軽快に動作させることを研究。
+          VR/XRデバイスを持たないユーザーも含め、誰もがブラウザ一つで防災訓練に参加できる環境の実現を目指す研究。
+          Unity WebGLの制約（WASMメモリ・テクスチャ圧縮）の最適化やAddressablesによる遅延ロードを実装し、
+          広大なバーチャルキャンパス空間を軽快に動作させることで、地震・津波・ミサイル避難などのシナリオを
+          インストール不要で誰でも体験できるアクセシブルなメタバース環境を構築している。
         </div>
         <div class="research-meta">
           <span class="research-tag">Unity</span>
-          <span class="research-tag">VR/XR</span>
+          <span class="research-tag">WebGL</span>
+          <span class="research-tag">Unity Addressables</span>
+          <span class="research-tag">パフォーマンス最適化</span>
           <span class="research-tag">防災工学</span>
           <span class="research-tag">HCI</span>
         </div>
       </div>
     </div>
 
-    <div class="research-card reveal">
-      <div class="research-num">02</div>
-      <div>
-        <div class="research-title">WebGLによるメタバースアクセシビリティの向上</div>
-        <div class="research-desc">
-          VRヘッドセットを必要とせず、ブラウザのみで参加できるメタバース環境の実現。
-          Unity WebGL制約（WASMメモリ・テクスチャ圧縮）の最適化と
-          Addressablesを用いた遅延ロード実装について研究。
-        </div>
-        <div class="research-meta">
-          <span class="research-tag">WebGL</span>
-          <span class="research-tag">Unity Addressables</span>
-          <span class="research-tag">パフォーマンス最適化</span>
-        </div>
-      </div>
-    </div>
-
   </div>
 </section>
-
-<!-- CONTACT -->
-<section id="contact">
-  <div class="section-label">Contact</div>
-  <h2>一緒に作りませんか？</h2>
-  <p>
-    ゲーム開発・VR/XR・低レイヤ開発などに興味のある企業さまからのご連絡をお待ちしています。<br>
-    インターンシップや就職についてのお問い合わせもお気軽にどうぞ。
-  </p>
-  <div class="contact-links reveal">
-    <a href="https://github.com/" class="contact-link" target="_blank">
-      <span class="icon">🐙</span> GitHub
-    </a>
-    <a href="mailto:your@email.com" class="contact-link">
-      <span class="icon">✉️</span> Email
-    </a>
-    <a href="https://twitter.com/" class="contact-link" target="_blank">
-      <span class="icon">𝕏</span> X (Twitter)
-    </a>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div>© 2025 <span>てる</span></div>
-  <div>Built with 💜 in Tokushima</div>
-</footer>
 
 <script>
   // Custom cursor
